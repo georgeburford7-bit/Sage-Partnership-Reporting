@@ -7,6 +7,10 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2300D93A' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://i.ibb.co" crossorigin>
+<link rel="preconnect" href="https://script.google.com" crossorigin>
+<link rel="dns-prefetch" href="https://i.ibb.co">
+<link rel="dns-prefetch" href="https://script.google.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap" rel="stylesheet">
 <style>
 @font-face{
@@ -609,6 +613,17 @@ function checkLogin(){
   try{var s=localStorage.getItem(LOGIN_KEY);if(s){var p=JSON.parse(atob(s));if(p.ok&&p.ts&&(Date.now()-p.ts)<30*24*60*60*1000)return true;}}catch(e){}
   return false;
 }
+function warmupGAS(){
+  // Silent ping to wake up Google Apps Script so EFL dashboard loads faster
+  try{
+    var cb='warmup_'+Date.now();
+    var s=document.createElement('script');
+    s.src='https://script.google.com/macros/s/AKfycbzvonHmErzwYeIUOwflGyWyIc2Opcy5hiacCAK9sDwnEtEi1w92L90tEjI9mR3Qea93/exec?callback='+cb+'&warmup=1';
+    window[cb]=function(){try{delete window[cb];}catch(e){}if(s.parentNode)s.parentNode.removeChild(s);};
+    setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s);},15000);
+    document.head.appendChild(s);
+  }catch(e){}
+}
 function showHub(){
   document.getElementById('login-screen').classList.add('hidden');
   ['hdr','hero','mn','ft'].forEach(function(id){document.getElementById(id).style.display='';});
@@ -617,6 +632,8 @@ function showHub(){
   document.getElementById('mn').style.display='block';
   document.getElementById('ft').style.display='flex';
   document.getElementById('ft-date').textContent='Accessed '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  // Warm up GAS in background so EFL dashboard loads faster
+  setTimeout(warmupGAS, 1500);
 }
 function attemptLogin(){
   var email=(document.getElementById('le').value||'').trim().toLowerCase();

@@ -37,7 +37,7 @@ nav::-webkit-scrollbar{display:none}
 .nb{display:inline-block;padding:13px 16px;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;user-select:none;transition:color .15s ease,border-color .15s ease}
 .nb:hover{color:var(--text)}.nb.active{color:var(--green);border-bottom-color:var(--green);background:rgba(0,179,136,0.07)}
 main{padding:24px;max-width:1600px;position:relative;margin:0 auto}
-.tp{display:block;opacity:0;pointer-events:none;position:absolute;width:100%;top:0;left:0}.tp.active{opacity:1;pointer-events:auto;position:relative}
+.tp{display:none;opacity:0;pointer-events:none;width:100%}.tp.active{display:block;opacity:1;pointer-events:auto;position:relative}
 .kr{display:grid;gap:14px;margin-bottom:20px}
 .k3{grid-template-columns:repeat(3,1fr)}.k4{grid-template-columns:repeat(4,1fr)}
 .ka{grid-template-columns:repeat(auto-fill,minmax(185px,1fr))}
@@ -89,7 +89,7 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(0,179,136,0.03)}
 @keyframes tk{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @media(max-width:900px){.k3{grid-template-columns:1fr 1fr}.k4{grid-template-columns:1fr 1fr}.cg{grid-template-columns:1fr}}
 @media(max-width:600px){.k3,.k4{grid-template-columns:1fr}main{padding:14px}}
-.tkt-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;align-items:start}
+.tkt-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;align-items:stretch}
 .tkt-map-wrap{position:relative;height:700px;border-radius:12px;overflow:hidden;border:1px solid var(--border);z-index:0;isolation:isolate}
 #tkt-map{height:100%;width:100%;background:#080f0d}
 .leaflet-popup-content-wrapper{background:#111f1a;border:1px solid rgba(0,179,136,0.3);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.6);padding:0}
@@ -497,7 +497,7 @@ header{
   <div class="login-left">
     <div class="login-left-content">
       <img class="login-left-logo" src="https://i.ibb.co/JF8xXxtJ/efl-sage-lockup-1.webp" alt="EFL x Sage">
-      <h1 class="login-left-headline">Welcome to Your Live<br>Partnership Dashboard<br><span></span></h1>
+      <h1 class="login-left-headline">Official Accounting<br>Software Partner<br><span>of the EFL.</span></h1>
       <p class="login-left-sub">2025/26 Season · Live Partnership Reporting</p>
       <div class="login-badges">
         <span class="login-badge">Championship</span>
@@ -525,6 +525,16 @@ header{
     <p class="login-footer-text">Confidential · Authorised access only</p>
   </div>
 </div>
+<script>
+(function(){
+  try{
+    var s=localStorage.getItem('sageEFLauth');
+    if(s){var p=JSON.parse(atob(s));if(p.ok&&p.ts&&(Date.now()-p.ts)<30*24*60*60*1000){
+      document.getElementById('login-screen').style.display='none';
+    }}
+  }catch(e){}
+})();
+</script>
 <div id="loading">
   <img decoding="async" src="https://i.ibb.co/JF8xXxtJ/efl-sage-lockup-1.webp" alt="EFL x Sage" onclick="var hb=document.querySelector('.nb[data-id=home]');if(!hb){var btns=document.querySelectorAll('.nb');if(btns.length)btns[0].click();}else{hb.click();}" style="cursor:pointer" title="Go to Home">
   <div id="pt"><div id="pb"></div></div>
@@ -535,7 +545,7 @@ header{
     <img decoding="async" src="https://i.ibb.co/JF8xXxtJ/efl-sage-lockup-1.webp" alt="EFL x Sage" onclick="var hb=document.querySelector('.nb[data-id=home]');if(!hb){var btns=document.querySelectorAll('.nb');if(btns.length)btns[0].click();}else{hb.click();}" style="cursor:pointer" title="Go to Home">
     <span class="ht"> Partnership Reporting &middot; Live</span>
     <div class="hr"><span id="clk">--:--:--</span><span id="clk-mode" style="font-size:10px;color:var(--muted);margin-left:10px;font-weight:300"></span>
-    <button onclick="window.print()" title="Print / Export" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(232,244,240,0.6);border-radius:6px;padding:5px 9px;cursor:pointer;font-size:11px;margin-right:6px" aria-label="Print"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg></button><button id="rbtn" onclick="fetchAndBuild(true)"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:middle"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg> Refresh</button></div>
+    <button onclick="window.print()" title="Print / Export" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(232,244,240,0.6);border-radius:6px;padding:5px 9px;cursor:pointer;font-size:11px;margin-right:6px" aria-label="Print"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg></button></div>
   </div>
 </header>
 <nav id="nav"></nav>
@@ -582,8 +592,8 @@ function baseOpts(){return{responsive:true,maintainAspectRatio:false,animation:{
 function lineChart(id,labels,datasets){killChart(id);var ctx=document.getElementById(id);if(!ctx)return;CHS[id]=new Chart(ctx,{type:'line',data:{labels:labels,datasets:datasets.map(function(d,i){return{label:d.label,data:d.data,borderColor:d.color||PAL[i%PAL.length],backgroundColor:d.fill?hexRgba(d.color||PAL[i%PAL.length],0.08):'transparent',fill:d.fill||false,tension:.35,pointRadius:2,pointHoverRadius:5,borderWidth:2};})},options:baseOpts()});}
 function barChart(id,labels,datasets,stacked){killChart(id);var ctx=document.getElementById(id);if(!ctx)return;var o=baseOpts();if(stacked){o.scales.x.stacked=true;o.scales.y.stacked=true;o.plugins.legend.display=false;}CHS[id]=new Chart(ctx,{type:'bar',data:{labels:labels,datasets:datasets.map(function(d,i){return{label:d.label,data:d.data,backgroundColor:d.color||PAL[i%PAL.length],borderRadius:stacked?0:3,borderSkipped:stacked?false:'bottom'};})},options:o});}
 function donutChart(id,labels,data,colors,logos){killChart(id);var ctx=document.getElementById(id);if(!ctx)return;
-var legendId=id+'-legend';var wrap=ctx.parentElement;
-if(!wrap.querySelector('.dn-legend')){var ld=document.createElement('div');ld.className='dn-legend';ld.id=legendId;wrap.appendChild(ld);}
+var legendId=id+'-legend';var wrap=ctx.parentElement;var card=wrap.parentElement||wrap;
+if(!card.querySelector('.dn-legend')){var ld=document.createElement('div');ld.className='dn-legend';ld.id=legendId;card.appendChild(ld);}
 CHS[id]=new Chart(ctx,{type:'doughnut',data:{labels:labels,datasets:[{data:data,backgroundColor:colors||PAL,borderColor:'rgba(8,15,13,0.8)',borderWidth:2,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',animation:{duration:500},plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(8,15,13,0.95)',borderColor:'rgba(0,179,136,0.3)',borderWidth:1,titleColor:'#e8f4f0',bodyColor:'#e8f4f0',titleFont:{family:'Inter',weight:'900'},bodyFont:{family:'Inter'},padding:10,callbacks:{label:function(c){return c.label+': '+fNum(c.raw);}}}}}});
 var lg=document.getElementById(legendId);
 if(lg){lg.innerHTML=labels.map(function(lbl,i){var lk=lbl.toLowerCase();var logo=logos&&logos[lk]?logos[lk]:(CL[lk]||null);var col=(colors&&colors[i])||PAL[i%PAL.length];return'<span class="dn-li"><span class="ld" style="background:'+col+'"></span>'+(logo?'<img decoding="async" src="'+logo+'" style="width:16px;height:16px;object-fit:contain;flex-shrink:0">':'')+'<span>'+lbl+'</span></span>';}).join('');}
@@ -816,7 +826,7 @@ function buildSocialMedia(scData,osData,psData){
 
   html += '</div>';
 
-  html+='<div class="sm-section-title" style="margin-top:20px">Social Campaigns — Behind the Badge &amp; Activity</div>';
+  html+='<div class="sm-section-title" style="margin-top:20px">Social Campaigns</div>';
   if(scData){html+=buildSocialCampaignsInner(scData);}
   html+='<div class="sm-section-title" style="margin-top:24px">Owned Socials</div>';
   if(osData&&osData.headers&&osData.rows){
@@ -837,15 +847,7 @@ function buildSocialMedia(scData,osData,psData){
       if(cc){killChart('os-ctr');var ctx=document.getElementById('os-ctr');if(ctx){var o=baseOpts();o.plugins.tooltip.callbacks.label=function(c){return c.dataset.label+': '+c.raw+'%';};o.scales.y.ticks.callback=function(v){return v+'%';};CHS['os-ctr']=new Chart(ctx,{type:'bar',data:{labels:lbl,datasets:[{label:'CTR',data:rows2.map(function(r){var v=pNum(r[cc]);return v!==null?parseFloat((v*100).toFixed(2)):null;}),backgroundColor:'#009ee3',borderRadius:3}]},options:o});}}
     },100);})(labels,impCol,ctrCol,dr);
   } else {html+='<p class="nd">No Owned Socials data</p>';}
-  html+='<div class="sm-section-title" style="margin-top:24px">Paid Social</div>';
-  if(psData&&psData.headers&&psData.rows){
-    var ph=psData.headers,pr=psData.rows;
-    var pMonthCol=ph[0],pImpCol=ph[3]||ph.find(function(h){return/paid|impression/i.test(h)&&colType(h,pr)==='numeric';});
-    var pDr=pr.filter(function(r){var m=String(r[pMonthCol]||'').trim();return m&&!/2025.2026|season|ooh|total/i.test(m)&&pNum(r[pImpCol])!==null;});
-    var pLabels=pDr.map(function(r){return r[pMonthCol];});
-    // OOH has been moved to the Digital & Out-of-Home tab
-  } else {html+='<p class="nd">No Paid Social data</p>';}
-  html += buildNotesBox('social-media'); return html;
+   return html;
 }
 
 function buildSocialCampaignsInner(data){
@@ -942,7 +944,18 @@ function buildDigital(wsData,motmData,oohData){
     var oMonthCol=oh[2],oValCol=oh[4];
     if(!oMonthCol)oMonthCol=oh.find(function(h){return/month|period/i.test(h);})||oh[0];
     if(!oValCol)oValCol=oh.find(function(h){return colType(h,or2)==='numeric';});
-    var oDr=or2.filter(function(r){var m=String(r[oMonthCol]||'').trim();return m&&!/2025.2026|season|ooh|total/i.test(m)&&pNum(r[oValCol])!==null;});
+    // Find the OOH marker row (col A = "OOH") then take only rows after it
+    var oohMarkerIdx=-1;
+    or2.forEach(function(r,i){
+      var a=String(r[oh[0]]||'').trim();
+      if(/^ooh$/i.test(a)) oohMarkerIdx=i;
+    });
+    var MONTH_RE=/^(january|february|march|april|may|june|july|august|september|october|november|december)$/i;
+    var oDr=(oohMarkerIdx>=0?or2.slice(oohMarkerIdx+1):or2).filter(function(r){
+      var m=String(r[oMonthCol]||'').trim();
+      var v=pNum(r[oValCol]);
+      return MONTH_RE.test(m) && v!==null && v>0;
+    });
     if(oDr.length){
       var oLabels=oDr.map(function(r){return r[oMonthCol];});
       var oYTD=oDr.reduce(function(s,r){return s+(pNum(r[oValCol])||0);},0);
@@ -961,7 +974,7 @@ function buildDigital(wsData,motmData,oohData){
       },120);})(oLabels,oValCol,oDr);
     }
   }
-  return (html||'') + buildNotesBox('digital');
+  return (html||'');
 }
 
 function buildEmailCRM(data){
@@ -978,11 +991,12 @@ function buildEmailCRM(data){
   // Deduplicate metricCols
   var seenCols={};metricCols=metricCols.filter(function(h){if(seenCols[h])return false;seenCols[h]=true;return true;});
   // Filter rows: exclude entrant confirmation emails, keep real campaign rows
+  var EXCL_PAT=/entrant|confirm.*entry|entry.*confirm|competition.*confirm|email.*to.*entrant|entrant.*email|efl.launch.partner|launch.partner/i;
   var dr=rows.filter(function(r){
     var m=String(r[monthCol]||'').trim();
-    var camp=campaignCol?String(r[campaignCol]||'').trim():'';
+    var camp=String(r[campaignCol||monthCol]||'').trim();
     if(!m)return false;
-    if(/entrant|confirm.*entry|entry.*confirm|competition.*confirm/i.test(camp))return false;
+    if(EXCL_PAT.test(m)||EXCL_PAT.test(camp))return false;
     return metricCols.some(function(c){return pNum(r[c])!==null;});
   });
   if(!dr.length)return'<div class="card"><div class="ct">Email / CRM</div><p class="nd">No data available</p></div>';
@@ -1086,7 +1100,7 @@ function buildEmailCRM(data){
         +'</tr>';
     }).join('')
     +'</tbody></table></div></div>';
-  html += buildNotesBox('email-crm'); return html;
+   return html;
 }
 
 function buildActivation(arData,bcData){
@@ -1147,14 +1161,14 @@ function buildActivation(arData,bcData){
     var nonCustomers=latestCount!==null?Math.max(0,TOTAL_EFL_CLUBS-latestCount):null;
 
     // ── Replace line chart with donut chart ──────────────────────────────────
-    html+='<div class="cg" style="margin-bottom:16px">';
-    html+='<div class="card"><div class="ct">% of EFL Clubs — Sage Customers vs Non-Customers</div><div class="cws" style="height:280px"><canvas id="act-sage-donut"></canvas></div>'
+    html+='<div style="margin-bottom:16px">';
+    html+='<div class="card"><div class="ct">% of EFL Clubs — Sage Customers vs Non-Customers</div><div class="cws" style="height:300px"><canvas id="act-sage-donut"></canvas></div>'
       +(latestCount!==null?'<div style="text-align:center;padding:10px 0 4px;font-size:11px;color:var(--muted)">'
         +'<span style="color:var(--green);font-weight:700">'+latestCount+'</span> Sage customers · '
         +'<span style="font-weight:700">'+TOTAL_EFL_CLUBS+'</span> total EFL clubs'
       +'</div>':'')
       +'</div>';
-    html+='<div class="card"><div class="ct">Sage Customer Clubs — Season Progression</div><div class="cw"><canvas id="act-sage-line"></canvas></div></div>';
+
     html+='</div>';
 
     (function(lbl,vs,latest,nonCust){setTimeout(function(){
@@ -1178,16 +1192,10 @@ function buildActivation(arData,bcData){
         });
       }
       // Line (season progression)
-      killChart('act-sage-line');
-      var ctx2=document.getElementById('act-sage-line');
-      if(ctx2){
-        var o=baseOpts();o.scales.y.min=Math.max(0,(Math.min.apply(null,vs.filter(function(v){return v!==null;}))||0)-2);
-        o.scales.y.ticks.stepSize=1;o.scales.y.ticks.callback=function(v){return Number.isInteger(v)?v:'';};
-        CHS['act-sage-line']=new Chart(ctx2,{type:'line',data:{labels:lbl,datasets:[{label:'Customer Clubs',data:vs,borderColor:'#00b388',backgroundColor:'rgba(0,179,136,0.08)',fill:true,tension:.35,pointRadius:4,pointHoverRadius:7,borderWidth:2}]},options:o});
-      }
+
     },120);})(MONTH_NAMES.slice(0,vals.length),vals,latestCount,nonCustomers);
   }
-  return (html||'') + buildNotesBox('activation');
+  return (html||'');
 }
 
 var activeTabId=null;
@@ -1241,12 +1249,12 @@ comps.forEach(function(c,i){var cr=dr.filter(function(r){return r[cCol]===c;});v
 var ytdV=comboCum.length?comboCum[comboCum.length-1]:0;
 var latMV=mL.length>1?comboCum[comboCum.length-1]-comboCum[comboCum.length-2]:comboCum[0]||0;
 var html='<div class="kr k4"><div class="card csm"><div class="ct">Total to Date</div><div class="kv" style="color:var(--green)">'+fNum(ytdV,true)+'</div></div><div class="card csm"><div class="ct">Latest Month</div><div class="kv" style="color:var(--blue)">'+fNum(latMV,true)+'</div></div><div class="card csm"><div class="ct">Competitions</div><div class="kv" style="color:var(--orange)">'+comps.length+'</div></div><div class="card csm"><div class="ct">Months Tracked</div><div class="kv">'+mL.length+'</div></div></div>';
-html+='<div class="cg"><div class="card"><div class="ct">Cumulative Growth vs 24/25</div><div class="cw"><canvas id="'+tid+'-ln"></canvas></div></div><div class="card"><div class="ct">Season Total by Competition</div><div class="cws"><canvas id="'+tid+'-dn"></canvas></div></div></div>';
+html+='<div class="cg"><div class="card"><div class="ct">Cumulative Growth vs 24/25</div><div class="cw"><canvas id="'+tid+'-ln"></canvas></div></div><div class="card"><div class="ct">Season Total by Competition</div><div class="cw"><canvas id="'+tid+'-dn"></canvas></div></div></div>';
 html+='<div class="card" style="margin-bottom:0"><div class="ct">Monthly by Competition</div><div class="lr">'+comps.map(function(c){var lk=c.toLowerCase();return'<span class="li"><span class="ld" style="background:'+(CC[lk]||PAL[0])+'"></span>'+(CL[lk]?'<img decoding="async" src="'+CL[lk]+'" style="width:15px;height:15px;object-fit:contain">':'')+'<span style="color:#e8f4f0"> '+c+'</span></span>';}).join('')+'</div><div class="cw"><canvas id="'+tid+'-br"></canvas></div></div>';
 (function(t,ml,cc,ps,cl,dd,dc,sd){setTimeout(function(){killChart(t+'-ln');var ctx=document.getElementById(t+'-ln');if(ctx){var o=baseOpts();var psCum=[],run=0;(ps||[]).forEach(function(v){run+=v;psCum.push(run);});var ds=[{label:'25/26',data:cc,borderColor:'#00b388',backgroundColor:'rgba(0,179,136,0.08)',fill:true,tension:.4,pointRadius:3,pointHoverRadius:6,borderWidth:2.5}];if(psCum.length)ds.push({label:'24/25',data:psCum,borderColor:'#6b9a8a',backgroundColor:'transparent',fill:false,tension:.4,pointRadius:3,pointHoverRadius:6,borderWidth:1.5,borderDash:[5,4]});CHS[t+'-ln']=new Chart(ctx,{type:'line',data:{labels:ml,datasets:ds},options:o});}donutChart(t+'-dn',cl,dd,dc,CL);barChart(t+'-br',ml,sd,true);},80);})(tid,mL,comboCum,prev2425,cL2,cD2,cC2,sDs);
 return html;}
-function buildBroadcast(data){return buildCumTab(data,'bc',[6747300,5876000,4718000,4389000,9113700,11707000]) + buildNotesBox('broadcast');}
-function buildAttendance(data){return buildCumTab(data,'att',[1833712,1518898,2315631,2068078,2642302,4251979]) + buildNotesBox('attendance');}
+function buildBroadcast(data){return buildCumTab(data,'bc',[6747300,5876000,4718000,4389000,9113700,11707000]);}
+function buildAttendance(data){return buildCumTab(data,'att',[1833712,1518898,2315631,2068078,2642302,4251979]);}
 
 var CLUB_COORDS={'AFC Wimbledon':[51.4224,-0.1890],'Accrington Stanley':[53.7647,-2.3634],'Barnet':[51.6526,-0.1916],'Barnsley':[53.5527,-1.4679],'Barrow':[54.1112,-3.2280],'Birmingham City':[52.4750,-1.7868],'Blackburn Rovers':[53.7286,-2.4893],'Blackpool':[53.8054,-3.0478],'Bolton Wanderers':[53.5805,-2.5350],'Bradford City':[53.8040,-1.7589],'Bristol City':[51.4400,-2.6203],'Bristol Rovers':[51.5063,-2.4794],'Bromley':[51.3985,0.0145],'Burton Albion':[52.8127,-1.6488],'Cambridge United':[52.2057,0.1354],'Cardiff City':[51.4726,-3.2030],'Charlton Athletic':[51.4865,0.0361],'Cheltenham Town':[51.8997,-2.0705],'Chesterfield':[53.2522,-1.4356],'Colchester United':[51.8928,0.8960],'Coventry City':[52.4484,-1.5220],'Crawley Town':[51.1150,-0.1886],'Crewe Alexandra':[53.0893,-2.4408],'Derby County':[52.9148,-1.4471],'Doncaster Rovers':[53.5102,-1.1196],'Exeter City':[50.7300,-3.5249],'Fleetwood Town':[53.9177,-3.0110],'Gillingham':[51.3939,0.5706],'Grimsby Town':[53.5698,-0.0706],'Harrogate Town':[53.9942,-1.5402],'Huddersfield Town':[53.6543,-1.7680],'Hull City':[53.7456,-0.3678],'Ipswich Town':[52.0556,1.1450],'Leicester City':[52.6204,-1.1422],'Leyton Orient':[51.5607,-0.0131],'Lincoln City':[53.2282,-0.5406],'Luton Town':[51.8836,-0.4317],'Mansfield Town':[53.1421,-1.1993],'Middlesbrough':[54.5782,-1.2175],'Millwall':[51.4854,-0.0508],'Milton Keynes Dons':[52.0138,-0.7330],'Newport County':[51.5882,-2.9947],'Northampton Town':[52.2500,-0.9044],'Norwich City':[52.6221,1.3094],'Notts County':[52.9472,-1.1350],'Oldham Athletic':[53.5548,-2.1280],'Oxford United':[51.7185,-1.2118],'Peterborough United':[52.5635,-0.2418],'Plymouth Argyle':[50.3882,-4.1243],'Port Vale':[53.0513,-2.1882],'Portsmouth':[50.7965,-1.0640],'Preston North End':[53.7726,-2.6862],'Queens Park Rangers':[51.5093,-0.2321],'Reading':[51.4547,-0.9863],'Rotherham United':[53.4280,-1.3630],'Salford City':[53.4875,-2.2901],'Sheffield United':[53.3703,-1.4706],'Sheffield Wednesday':[53.4114,-1.5005],'Shrewsbury Town':[52.7083,-2.7557],'Southampton':[50.9058,-1.3912],'Stevenage':[51.8882,-0.2166],'Stockport County':[53.4060,-2.1580],'Stoke City':[52.9882,-2.1719],'Swansea City':[51.6427,-3.9343],'Swindon Town':[51.5642,-1.7726],'Tranmere Rovers':[53.3959,-3.0442],'Walsall':[52.5680,-1.9826],'Watford':[51.6498,-0.4017],'West Bromwich Albion':[52.5092,-1.9641],'Wigan Athletic':[53.5523,-2.6370],'Wrexham':[53.0450,-2.9920],'Wycombe Wanderers':[51.6307,-0.7990]};
 var TKT_MAP=null;
@@ -1296,7 +1304,7 @@ var html='<div class="kr k4" style="margin-bottom:16px">'+ringHTML
   +'<div class="card csm csm-accent csm-blue"><div class="ct">Clubs Active</div><div class="kv" style="color:var(--blue)">'+activeClubs+'</div></div>'
   +'</div>';
 
-html+='<div class="tkt-layout"><div class="card" style="padding:14px"><div class="ct" style="margin-bottom:10px">Club Locations &amp; Ticket Usage</div><div class="tkt-map-wrap"><div id="tkt-map"></div></div></div><div class="card" style="padding:14px"><div class="ct" style="margin-bottom:10px">Ticket Usage by Club</div><div class="tkt-bar-section" id="tkt-bar-wrap" style="height:auto;padding:8px 4px;overflow-y:auto;max-height:620px"></div></div></div>';
+html+='<div class="tkt-layout"><div class="card" style="padding:14px;display:flex;flex-direction:column"><div class="ct" style="margin-bottom:10px">Club Locations &amp; Ticket Usage</div><div class="tkt-map-wrap" style="flex:1;height:auto;min-height:600px"><div id="tkt-map"></div></div></div><div class="card" style="padding:14px;display:flex;flex-direction:column"><div class="ct" style="margin-bottom:10px">Ticket Usage by Club</div><div class="tkt-bar-section" id="tkt-bar-wrap" style="flex:1;padding:8px 4px;overflow-y:auto;min-height:0"></div></div></div>';
 
 var sortedClubs=[].concat(clubRows).sort(function(a,b){return(pNum(b[totalUsedCol])||0)-(pNum(a[totalUsedCol])||0);});
 var dispCols=[gaUsedCol,hospUsedCol,totalUsedCol,gaAllocCol,hospAllocCol,gaLeftCol,hospLeftCol].filter(Boolean);
@@ -1317,7 +1325,7 @@ var TKT_DEST=[
 var tktDestTotal=TKT_DEST.reduce(function(s,r){return s+r.val;},0);
 var tktDestCols=['#00b388','#009ee3','#f4a024','#7ecfc0','#f7c46a','#a78bfa','#e05c5c','#5ce0c9','#f7a28a','#b3e0f7'];
 html+='<div style="margin-bottom:16px">';
-html+='<div class="card"><div class="ct">Ticket Utilisation Purpose</div><div class="cws" style="height:320px"><canvas id="tkt-dest-pie"></canvas></div></div>';
+html+='<div class="card"><div class="ct">Ticket Utilisation Purpose</div><div class="cws" style="height:340px"><canvas id="tkt-dest-pie"></canvas></div></div>';
 html+='</div>';
 (function(data,cols){
   setTimeout(function(){
@@ -1403,7 +1411,7 @@ html+='</tbody></table></div></div>';
   setTimeout(function(){TKT_MAP.invalidateSize();},200);
   cr.forEach(function(r){var name=String(r[cn]||'').trim();if(/motm|other.comp/i.test(name))return;var coords=CLUB_COORDS[name];if(!coords)return;var used=pNum(r[tuc])||0;var gaAlloc=gaa?pNum(r[gaa])||20:20;var hAlloc=haa?pNum(r[haa])||4:4;var alloc=gaAlloc+hAlloc;var util=alloc>0?Math.round(used/alloc*100):0;var col=util>=80?'#e05c5c':util>=50?'#f4a024':'#00b388';var sz=used>20?14:used>10?11:8;var gaUsed=gac?pNum(r[gac])||0:0;var hUsed=huc?pNum(r[huc])||0:0;var gaLeft=glc?pNum(r[glc]):'';var hLeft=hlc?pNum(r[hlc]):'';L.circleMarker(coords,{radius:sz,fillColor:col,color:'rgba(8,15,13,0.8)',weight:1.5,fillOpacity:0.85}).bindPopup('<div class="map-popup"><div class="map-popup-name">'+name+'</div><div class="map-popup-row"><span class="map-popup-label">GA Used</span><span class="map-popup-val green">'+gaUsed+'</span></div><div class="map-popup-row"><span class="map-popup-label">GA Remaining</span><span class="map-popup-val">'+gaLeft+'</span></div><div class="map-popup-row"><span class="map-popup-label">Hosp Used</span><span class="map-popup-val" style="color:#f4a024">'+hUsed+'</span></div><div class="map-popup-row"><span class="map-popup-label">Hosp Remaining</span><span class="map-popup-val">'+hLeft+'</span></div><div class="map-popup-row"><span class="map-popup-label">Total Used</span><span class="map-popup-val">'+used+'</span></div><div class="map-popup-util"><div style="display:flex;justify-content:space-between"><span class="map-popup-label">Utilisation</span><span class="map-popup-val" style="color:'+col+'">'+util+'%</span></div><div class="map-util-bar"><div class="map-util-fill" style="width:'+util+'%;background:'+col+'"></div></div></div></div>',{maxWidth:220}).addTo(TKT_MAP);});
 },300);})(clubRows,totalUsedCol,gaUsedCol,hospUsedCol,gaLeftCol,hospLeftCol,gaAllocCol,hospAllocCol,clubCol);
-html += buildNotesBox('ticketing'); return html;}
+ return html;}
 
 function buildSection(name,data){if(!data||!data.headers)return'<p class="nd">No data for '+name+'</p>';var headers=data.headers,rows=data.rows;var dr=rows.filter(function(r){return headers.some(function(h){return pNum(r[h])!==null;});});if(!dr.length)return'<p class="nd">No numeric data in '+name+'</p>';var nC=headers.filter(function(h){return colType(h,rows)==='numeric';});var lC=headers.filter(function(h){return colType(h,rows)!=='numeric';});var tC=lC.find(function(h){return/month|period|date|week|year/i.test(h);})||lC[0];var html='';if(nC.length){var last=dr[dr.length-1],prev=dr.length>1?dr[dr.length-2]:null;html+='<div class="kr ka">'+nC.slice(0,6).map(function(col,i){var v=pNum(last[col]),pv=prev?pNum(prev[col]):null,trend='';if(v!==null&&pv!==null&&pv!==0){var pct=((v-pv)/Math.abs(pv)*100).toFixed(1);trend='<div class="ktrd '+(pct>=0?'up':'dn')+'">'+(pct>=0?'<svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor" style="vertical-align:middle"><path d="M7 14l5-5 5 5z"/></svg>':'<svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor" style="vertical-align:middle"><path d="M7 10l5 5 5-5z"/></svg>')+' '+Math.abs(pct)+'%</div>';}return'<div class="card csm"><div class="ct">'+col+'</div><div class="kv" style="color:'+PAL[i%PAL.length]+'">'+fNum(v)+'</div>'+trend+'</div>';}).join('')+'</div>';}if(nC.length&&tC){var labels=dr.map(function(r){return r[tC]||'';});var sid=slug(name);if(nC.length===1){html+='<div class="card" style="margin-bottom:16px"><div class="ct">'+nC[0]+' Over Time</div><div class="cw"><canvas id="cl-'+sid+'"></canvas></div></div>';(function(s,lb,col,rows2){setTimeout(function(){lineChart('cl-'+s,lb,[{label:col,data:rows2.map(function(r){return pNum(r[col]);}),fill:true}]);},80);})(sid,labels,nC[0],dr);}else{html+='<div class="cg"><div class="card"><div class="ct">Trends</div><div class="cw"><canvas id="cl-'+sid+'"></canvas></div></div><div class="card"><div class="ct">Latest Snapshot</div><div class="cws"><canvas id="cd-'+sid+'"></canvas></div></div></div><div class="card" style="margin-bottom:16px"><div class="ct">Comparison by Period</div><div class="cw"><canvas id="cb-'+sid+'"></canvas></div></div>';(function(s,lb,nc,rows2){setTimeout(function(){lineChart('cl-'+s,lb,nc.slice(0,4).map(function(c,i){return{label:c,data:rows2.map(function(r){return pNum(r[c]);}),color:PAL[i]};}));var lv=rows2[rows2.length-1];donutChart('cd-'+s,nc.slice(0,6),nc.slice(0,6).map(function(c){return pNum(lv[c])||0;}),PAL);barChart('cb-'+s,lb,nc.slice(0,4).map(function(c,i){return{label:c,data:rows2.map(function(r){return pNum(r[c]);}),color:PAL[i]};}));},80);})(sid,labels,nC,dr);}}html+='</div>';return html;}
 
@@ -1674,9 +1682,12 @@ if(btn){btn.innerHTML=RSV+' Loading';}
 function onSuccess(data){
   buildDashboard(data);
   onDataLoaded();
-  var loading=document.getElementById('loading');
-  loading.classList.add('hidden');
-  setTimeout(function(){loading.style.display='none';},500);
+  if(!window._dashboardBuilt){
+    window._dashboardBuilt=true;
+    var loading=document.getElementById('loading');
+    loading.classList.add('hidden');
+    setTimeout(function(){loading.style.display='none';},500);
+  }
 }
 function onFail(msg){
   onDataLoaded();
@@ -1735,11 +1746,132 @@ function startDashboard(){
   LOAD_PI=setInterval(function(){p=Math.min(p+8,88);setProgress(p);},200);
   fetchAndBuild(true);
 }
+var AUTO_REFRESH_SET=false;
 function onDataLoaded(){
   if(LOAD_PI){clearInterval(LOAD_PI);LOAD_PI=null;}
   setProgress(100);
   stopLoadingMessages();
-  setInterval(function(){fetchAndBuild(false);},5*60*1000);
+  if(!AUTO_REFRESH_SET){AUTO_REFRESH_SET=true;setInterval(function(){fetchAndBuild(false);},5*60*1000);}
+}
+
+var LOGIN_KEY = 'sageEFLauth';
+var isLoggedIn = false;
+
+function checkStoredLogin(){
+  var saved = localStorage.getItem(LOGIN_KEY);
+  if(saved){
+    try{
+      var s = JSON.parse(atob(saved));
+      if(s.ok && s.ts && (Date.now()-s.ts) < 30*24*60*60*1000) return true;
+    }catch(e){}
+  }
+  return false;
+}
+
+function attemptLogin(){
+  var email    = (document.getElementById('login-email').value||'').trim().toLowerCase();
+  var password = (document.getElementById('login-password').value||'').trim();
+  var err      = document.getElementById('login-error');
+  err.textContent = '';
+  var match = USERS.find(function(u){ return u.email.toLowerCase()===email && u.password===password; });
+  if(match){
+    localStorage.setItem(LOGIN_KEY, btoa(JSON.stringify({ok:true,email:email,ts:Date.now()})));
+    // Hide login, show loading screen, then start fetching data
+    var ls = document.getElementById('login-screen');
+    ls.style.opacity = '0';
+    setTimeout(function(){
+      ls.classList.add('hidden');
+      ls.style.opacity = '';
+      document.getElementById('loading').style.display = 'flex';
+      startDashboard();
+    }, 400);
+  } else {
+    err.textContent = 'Incorrect email or password.';
+    document.getElementById('login-password').value = '';
+    document.getElementById('login-password').focus();
+  }
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){
+    var ls = document.getElementById('login-screen');
+    if(ls && !ls.classList.contains('hidden')) attemptLogin();
+  }
+});
+
+// ── Loading messages ───────────────────────────────────────────────────────
+var LOAD_MESSAGES = [
+  'Login successful — warming up',
+  'Connecting to live data',
+  'Fetching partnership metrics',
+  'Preparing your broadcast data',
+  'Loading attendance figures',
+  'Pulling ticketing reports',
+  'Syncing brand tracking data',
+  'Almost ready'
+];
+var loadMsgInterval = null;
+function startLoadingMessages(){
+  var el = document.getElementById('loading-msg');
+  if(!el) return;
+  var i = 0;
+  el.textContent = LOAD_MESSAGES[0];
+  loadMsgInterval = setInterval(function(){
+    if(!el) return;
+    el.style.opacity = '0';
+    setTimeout(function(){
+      i = (i + 1) % LOAD_MESSAGES.length;
+      el.textContent = LOAD_MESSAGES[i];
+      el.style.opacity = '1';
+    }, 400);
+  }, 1800);
+}
+function stopLoadingMessages(){
+  if(loadMsgInterval) clearInterval(loadMsgInterval);
+  var el = document.getElementById('loading-msg');
+  if(el){ el.style.opacity='0'; setTimeout(function(){ el.style.opacity='1'; el.textContent='All done — enjoy the dashboard'; }, 400); }
+}
+
+// ── Notes / Commentary ────────────────────────────────────────────────────
+
+
+// ── Notes / Commentary ────────────────────────────────────────────────────
+var NOTES_DEBOUNCE_MAP = {};
+function buildNotesBox(tabId){
+  var key = 'sageNotes_' + tabId;
+  var uid = 'notes-' + tabId;
+  var savedId = 'notes-saved-' + tabId;
+  var saved = '';
+  try{ saved = localStorage.getItem(key) || ''; }catch(e){}
+  setTimeout(function(){
+    var ta = document.getElementById(uid);
+    if(ta && !ta.dataset.bound){
+      if(saved) ta.value = saved;
+      ta.addEventListener('input', function(){ saveNote(key, savedId, this.value); });
+      ta.dataset.bound = '1';
+    } else if(ta && saved && !ta.value){
+      ta.value = saved;
+    }
+  }, 80);
+  return '<div class="notes-box-wrap"><div class="card" style="padding:16px 18px">'
+    + '<div class="notes-box-header">'
+    + '<svg class="notes-box-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>'
+    + '<span class="notes-box-title">Notes / Commentary</span>'
+    + '<span class="notes-box-saved" id="' + savedId + '">✓ Saved</span>'
+    + '</div>'
+    + '<textarea class="notes-textarea" id="' + uid + '" placeholder="Add contextual commentary, data caveats, seasonal notes or comparisons here. This content will persist across sessions and can be used for end-of-season reporting."></textarea>'
+    + '</div></div>';
+}
+
+function saveNote(key, savedId, val){
+  clearTimeout(NOTES_DEBOUNCE_MAP[key]);
+  NOTES_DEBOUNCE_MAP[key] = setTimeout(function(){
+    try{
+      localStorage.setItem(key, val);
+      var el = document.getElementById(savedId);
+      if(el){ el.classList.add('show'); setTimeout(function(){ el.classList.remove('show'); }, 1800); }
+    }catch(e){}
+  }, 600);
 }
 
 // On page load: if already logged in skip login and go straight to loading+dashboard
@@ -1747,18 +1879,18 @@ function onDataLoaded(){
 (function(){
   var loading = document.getElementById('loading');
   if(checkStoredLogin()){
-    // Already logged in — show loading screen and fetch data
     loading.style.display = 'flex';
     startDashboard();
   } else {
-    // Not logged in — hide loading screen, show login
     loading.style.display = 'none';
-    document.getElementById('login-screen').style.display = 'flex';
-    setTimeout(function(){ document.getElementById('login-email').focus(); }, 100);
+    var ls = document.getElementById('login-screen');
+    ls.style.display = 'flex';
+    ls.style.opacity = '1';
+    setTimeout(function(){ var e=document.getElementById('login-email'); if(e)e.focus(); }, 50);
   }
 })();
 </script>
-<div id="tmpl-home" style="display:none"><div class="home-wrap"><div class="home-hero" style="background-color:#0d1f19" data-bg="https://i.ibb.co/ycH4yP3M/shutterstock-editorial-16608432br.jpg"><div class="home-hero-overlay"><img decoding="async" src="https://i.ibb.co/JF8xXxtJ/efl-sage-lockup-1.webp" class="home-logo" alt="EFL x Sage"><h1 class="home-title">Welcome to the Sage x EFL<br>Reporting Dashboard</h1><p class="home-subtitle">Season 2025/26 &middot; Live Partnership Reporting</p></div></div><div class="home-body"><div class="home-intro card"><div class="home-intro-text"><h2 class="home-section-title">About This Dashboard</h2><p>Live performance tracking for the Sage x EFL partnership across the 2025/26 season. Built around three objectives: grow Sage brand awareness among accountants and small businesses, drive consideration and preference in the market, and deliver measurable commercial attribution through the EFL platform.</p><p style="margin-top:10px">Data refreshes automatically every 5 minutes. Use the tabs to explore performance across reach, engagement, digital, ticketing, and brand health metrics.</p></div><div class="home-intro-stats"><div class="home-stat"><div class="home-stat-label">Season</div><div class="home-stat-val">2025/26</div></div><div class="home-stat"><div class="home-stat-label">Competitions</div><div class="home-stat-val">5</div></div><div class="home-stat"><div class="home-stat-label">Data</div><div class="home-stat-val">Live</div></div><div class="home-stat"><div class="home-stat-label">Tabs</div><div class="home-stat-val">11</div></div></div></div></div><div class="home-tabs-guide"><h2 class="home-section-title" style="margin-bottom:14px">What's Inside</h2><div class="home-guide-grid"><div class="home-guide-card" style="--gc:#00b388"><div class="home-guide-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg></div><div class="home-guide-label">Broadcast</div><div class="home-guide-desc">TV viewership across all EFL competitions, tracked cumulatively vs last season.</div></div><div class="home-guide-card" style="--gc:#009ee3"><div class="home-guide-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><div class="home-guide-label">Attendance</div><div class="home-guide-desc">In-stadium attendance across Championship, League One, League Two and cup competitions.</div></div><div class="home-guide-card" style="--gc:#f4a024"><div class="home-guide-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg></div><div class="home-guide-label">Social Media</div><div class="home-guide-desc">Owned social impressions, CTR, OOH and campaign performance month by month.</div></div><div class="home-guide-card" style="--gc:#7ecfc0"><div class="home-guide-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M20 12c0-1.1.9-2 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v4c1.1 0 2 .9 2 2s-.9 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2zm-4.42 4.8L12 14.5l-3.58 2.3 1.08-4.12-3.29-2.69 4.24-.25L12 5.8l1.54 3.95 4.24.25-3.29 2.69 1.09 4.11z"/></svg></div><div class="home-guide-label">Ticketing</div><div class="home-guide-desc">GA and hospitality ticket usage by club, with an interactive map and channel breakdown.</div></div><div class="home-guide-card" style="--gc:#f7c46a"><div class="home-guide-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div><div class="home-guide-label">Digital &amp; Out-of-Home</div><div class="home-guide-desc">Sage.com sessions driven by EFL content plus out-of-home impressions — monthly and cumulative.</div></div><div class="home-guide-card" style="--gc:#a78bfa"><div class="home-guide-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg></div><div class="home-guide-label">Email / CRM</div><div class="home-guide-desc">Campaign send volumes, open rates and click-through rates across all Sage email activity.</div></div><div class="home-guide-card" style="--gc:#00b388"><div class="home-guide-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></div><div class="home-guide-label">Brand Tracking</div><div class="home-guide-desc">Wave 1 vs Wave 2 brand health: Awareness, Consideration and Preference vs Xero &amp; QuickBooks.</div></div></div></div></div></div></div>
+<div id="tmpl-home" style="display:none"><div class="home-wrap"><div class="home-hero" style="background-color:#0d1f19;background-image:url('https://i.ibb.co/ycH4yP3M/shutterstock-editorial-16608432br.jpg')" data-bg="https://i.ibb.co/ycH4yP3M/shutterstock-editorial-16608432br.jpg"><div class="home-hero-overlay"><img decoding="async" src="https://i.ibb.co/JF8xXxtJ/efl-sage-lockup-1.webp" class="home-logo" alt="EFL x Sage"><h1 class="home-title">Welcome to the Sage x EFL<br>Reporting Dashboard</h1><p class="home-subtitle">Season 2025/26 &middot; Live Partnership Reporting</p></div></div><div class="home-body"><div class="home-intro card"><div class="home-intro-text"><h2 class="home-section-title">About This Dashboard</h2><p>Live performance tracking for the Sage x EFL partnership across the 2025/26 season. Built around three objectives: grow Sage brand awareness among accountants and small businesses, drive consideration and preference in the market, and deliver measurable commercial attribution through the EFL platform.</p><p style="margin-top:10px">Data refreshes automatically every 5 minutes. Use the tabs to explore performance across reach, engagement, digital, ticketing, and brand health metrics.</p></div><div class="home-intro-stats"><div class="home-stat"><div class="home-stat-label">Season</div><div class="home-stat-val">2025/26</div></div><div class="home-stat"><div class="home-stat-label">Competitions</div><div class="home-stat-val">5</div></div><div class="home-stat"><div class="home-stat-label">Data</div><div class="home-stat-val">Live</div></div><div class="home-stat"><div class="home-stat-label">Tabs</div><div class="home-stat-val">11</div></div></div></div></div><div class="home-tabs-guide"><h2 class="home-section-title" style="margin-bottom:14px">What's Inside</h2><div class="home-guide-grid"><div class="home-guide-card" style="--gc:#00b388"><div class="home-guide-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg></div><div class="home-guide-label">Broadcast</div><div class="home-guide-desc">TV viewership across all EFL competitions, tracked cumulatively vs last season.</div></div><div class="home-guide-card" style="--gc:#009ee3"><div class="home-guide-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div><div class="home-guide-label">Attendance</div><div class="home-guide-desc">In-stadium attendance across Championship, League One, League Two and cup competitions.</div></div><div class="home-guide-card" style="--gc:#f4a024"><div class="home-guide-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg></div><div class="home-guide-label">Social Media</div><div class="home-guide-desc">Owned social impressions, CTR, OOH and campaign performance month by month.</div></div><div class="home-guide-card" style="--gc:#7ecfc0"><div class="home-guide-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M20 12c0-1.1.9-2 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v4c1.1 0 2 .9 2 2s-.9 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2zm-4.42 4.8L12 14.5l-3.58 2.3 1.08-4.12-3.29-2.69 4.24-.25L12 5.8l1.54 3.95 4.24.25-3.29 2.69 1.09 4.11z"/></svg></div><div class="home-guide-label">Ticketing</div><div class="home-guide-desc">GA and hospitality ticket usage by club, with an interactive map and channel breakdown.</div></div><div class="home-guide-card" style="--gc:#f7c46a"><div class="home-guide-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div><div class="home-guide-label">Digital &amp; Out-of-Home</div><div class="home-guide-desc">Sage.com sessions driven by EFL content plus out-of-home impressions — monthly and cumulative.</div></div><div class="home-guide-card" style="--gc:#a78bfa"><div class="home-guide-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg></div><div class="home-guide-label">Email / CRM</div><div class="home-guide-desc">Campaign send volumes, open rates and click-through rates across all Sage email activity.</div></div><div class="home-guide-card" style="--gc:#00b388"><div class="home-guide-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></div><div class="home-guide-label">Brand Tracking</div><div class="home-guide-desc">Wave 1 vs Wave 2 brand health: Awareness, Consideration and Preference vs Xero &amp; QuickBooks.</div></div></div></div></div></div></div>
 <div id="tmpl-gallery" style="display:none"><div class="home-body"><h2 class="home-section-title" style="margin-bottom:10px">Season Image Gallery</h2><p style="color:var(--muted);font-size:12px;margin-bottom:24px;line-height:1.7">All partnership photography from the 2025/26 season is stored in our shared image library. Click below to browse and download.</p><a href="https://teamwass.box.com/s/94ay19srizhm6me3osi2rfz0qeh2zm81" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:rgba(0,179,136,0.08);border:1px solid rgba(0,179,136,0.3);color:#00b388;padding:14px 24px;border-radius:10px;font-size:12px;font-weight:900;letter-spacing:.06em;text-decoration:none;transition:all .2s"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle"><path d="M12 15.2A3.2 3.2 0 0 1 8.8 12 3.2 3.2 0 0 1 12 8.8 3.2 3.2 0 0 1 15.2 12 3.2 3.2 0 0 1 12 15.2M20 4h-3.17L15 2H9L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/></svg> Open Image Gallery <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="vertical-align:middle;margin-left:2px"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg></a><p style="color:var(--muted);font-size:10px;margin-top:14px">Opens in a new tab &middot; Right-click any image to save</p></div></div>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
@@ -2088,128 +2220,10 @@ document.addEventListener('keydown',function(e){
 
 // ── Login ──────────────────────────────────────────────────────────────────
 var USERS = [
-  { email: 'george.burford@teamwass.com', password: 'englishfootballleague2024' }
+  { email: 'george.burford@the.team', password: 'englishfootballleague2024' },
+  { email: 'sally.moore@sage.com', password: 'englishfootballleague2024' }
+  { email: 'harriet.young@the.team', password: 'englishfootballleague2024' }
 ];
-var LOGIN_KEY = 'sageEFLauth';
-var isLoggedIn = false;
-
-function checkStoredLogin(){
-  var saved = localStorage.getItem(LOGIN_KEY);
-  if(saved){
-    try{
-      var s = JSON.parse(atob(saved));
-      if(s.ok && s.ts && (Date.now()-s.ts) < 30*24*60*60*1000) return true;
-    }catch(e){}
-  }
-  return false;
-}
-
-function attemptLogin(){
-  var email    = (document.getElementById('login-email').value||'').trim().toLowerCase();
-  var password = (document.getElementById('login-password').value||'').trim();
-  var err      = document.getElementById('login-error');
-  err.textContent = '';
-  var match = USERS.find(function(u){ return u.email.toLowerCase()===email && u.password===password; });
-  if(match){
-    localStorage.setItem(LOGIN_KEY, btoa(JSON.stringify({ok:true,email:email,ts:Date.now()})));
-    // Hide login, show loading screen, then start fetching data
-    var ls = document.getElementById('login-screen');
-    ls.style.opacity = '0';
-    setTimeout(function(){
-      ls.classList.add('hidden');
-      ls.style.opacity = '';
-      document.getElementById('loading').style.display = 'flex';
-      startDashboard();
-    }, 400);
-  } else {
-    err.textContent = 'Incorrect email or password.';
-    document.getElementById('login-password').value = '';
-    document.getElementById('login-password').focus();
-  }
-}
-
-document.addEventListener('keydown', function(e){
-  if(e.key === 'Enter'){
-    var ls = document.getElementById('login-screen');
-    if(ls && !ls.classList.contains('hidden')) attemptLogin();
-  }
-});
-
-// ── Loading messages ───────────────────────────────────────────────────────
-var LOAD_MESSAGES = [
-  'Login successful — warming up',
-  'Connecting to live data',
-  'Fetching partnership metrics',
-  'Preparing your broadcast data',
-  'Loading attendance figures',
-  'Pulling ticketing reports',
-  'Syncing brand tracking data',
-  'Almost ready'
-];
-var loadMsgInterval = null;
-function startLoadingMessages(){
-  var el = document.getElementById('loading-msg');
-  if(!el) return;
-  var i = 0;
-  el.textContent = LOAD_MESSAGES[0];
-  loadMsgInterval = setInterval(function(){
-    if(!el) return;
-    el.style.opacity = '0';
-    setTimeout(function(){
-      i = (i + 1) % LOAD_MESSAGES.length;
-      el.textContent = LOAD_MESSAGES[i];
-      el.style.opacity = '1';
-    }, 400);
-  }, 1800);
-}
-function stopLoadingMessages(){
-  if(loadMsgInterval) clearInterval(loadMsgInterval);
-  var el = document.getElementById('loading-msg');
-  if(el){ el.style.opacity='0'; setTimeout(function(){ el.style.opacity='1'; el.textContent='All done — enjoy the dashboard'; }, 400); }
-}
-
-// ── Notes / Commentary ────────────────────────────────────────────────────
-
-
-// ── Notes / Commentary ────────────────────────────────────────────────────
-var NOTES_DEBOUNCE_MAP = {};
-function buildNotesBox(tabId){
-  var key = 'sageNotes_' + tabId;
-  var uid = 'notes-' + tabId;
-  var savedId = 'notes-saved-' + tabId;
-  var saved = '';
-  try{ saved = localStorage.getItem(key) || ''; }catch(e){}
-  setTimeout(function(){
-    var ta = document.getElementById(uid);
-    if(ta && !ta.dataset.bound){
-      if(saved) ta.value = saved;
-      ta.addEventListener('input', function(){ saveNote(key, savedId, this.value); });
-      ta.dataset.bound = '1';
-    } else if(ta && saved && !ta.value){
-      ta.value = saved;
-    }
-  }, 80);
-  return '<div class="notes-box-wrap"><div class="card" style="padding:16px 18px">'
-    + '<div class="notes-box-header">'
-    + '<svg class="notes-box-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>'
-    + '<span class="notes-box-title">Notes / Commentary</span>'
-    + '<span class="notes-box-saved" id="' + savedId + '">✓ Saved</span>'
-    + '</div>'
-    + '<textarea class="notes-textarea" id="' + uid + '" placeholder="Add contextual commentary, data caveats, seasonal notes or comparisons here. This content will persist across sessions and can be used for end-of-season reporting."></textarea>'
-    + '</div></div>';
-}
-
-function saveNote(key, savedId, val){
-  clearTimeout(NOTES_DEBOUNCE_MAP[key]);
-  NOTES_DEBOUNCE_MAP[key] = setTimeout(function(){
-    try{
-      localStorage.setItem(key, val);
-      var el = document.getElementById(savedId);
-      if(el){ el.classList.add('show'); setTimeout(function(){ el.classList.remove('show'); }, 1800); }
-    }catch(e){}
-  }, 600);
-}
-
 </script>
 </body>
 </html>

@@ -41,7 +41,9 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 }
 .lw-image::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(to right,transparent 60%,var(--bg) 100%);
+  background:
+    linear-gradient(to right,transparent 60%,var(--bg) 100%),
+    linear-gradient(to top,rgba(8,15,13,0.92) 0%,rgba(8,15,13,0.4) 35%,transparent 60%);
 }
 .lw-image-text{
   position:absolute;bottom:48px;left:48px;z-index:1;
@@ -50,6 +52,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
   font-size:clamp(28px,3vw,42px);font-weight:900;
   color:#fff;line-height:1.1;letter-spacing:-.02em;
   margin-bottom:10px;
+  text-shadow:0 2px 20px rgba(0,0,0,0.8);
 }
 .lw-image-headline span{color:#00D93A;}
 .lw-image-sub{
